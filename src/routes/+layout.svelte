@@ -1,53 +1,61 @@
-<script>
-	import Header from './Header.svelte';
+<script type="ts">
 	import '../app.css';
+	import Account from "$lib/components/Account.svelte";
+
+	let user = null;
 </script>
 
 <div class="app">
-	<Header />
-
 	<main>
-		<slot />
+		{#if user}
+			<slot />
+		{:else}
+			<div class="flex">
+				<div>
+					<Account />
+				</div>
+			</div>
+		{/if}
 	</main>
-
-	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-	</footer>
 </div>
 
 <style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
+	:global(:root) {
+		font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+		--primary: #678D58;
+		--primary-tint: #A6C48A;
+		--primary-dark: #358600;
+		--secondary: #087F8C;
+		--secondary-tint: #AAEFDF;
+		--secondary-dark: #095256;
+		--teritary: #808080;
+		--off-white: #d9e8df;
+		--off-black: #344055;
+
+		--large-space: 60px;
+		--medium-space: 20px;
+		--small-space: 10px;
 	}
 
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
+	:global(h1) {
+		font-size: 45px;
+		margin: 0px;
+		padding: 0px;
+		text-align: center;
+		margin-bottom: var(--small-space);
+		color: var(--primary);
 	}
 
-	footer {
+	:global(.flex) {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
 		align-items: center;
-		padding: 12px;
+		justify-content: center;
 	}
 
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
+	.app {
+		background-color: var(--off-white);
+		min-height: 100vh;
+		padding: 5px;
+		padding-top: 20px;
 	}
 </style>
