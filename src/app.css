@@ -73,3 +73,9 @@ button.plain:hover {
 	align-items: center;
 	justify-content: center;
 }
+
+.box {
+	padding: 15px;
+	background-color: white;
+	border-radius: 15px;
+}

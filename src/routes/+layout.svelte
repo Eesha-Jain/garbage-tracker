@@ -67,7 +67,7 @@
 							<button
 								class="styled"
 								on:click={hasAccount ? onLogIn : onSignUp}
-								>Submit</button
+								>submit</button
 							>
 						</div>
 						<button
