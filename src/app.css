@@ -1,4 +1,75 @@
-html, body {
+html,
+body {
 	padding: 0px;
 	margin: 0px;
+}
+
+body,
+::placeholder,
+input,
+button {
+	font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+	font-size: var(--regular-text);
+}
+
+h1 {
+	font-size: 45px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	margin-bottom: var(--small-space);
+	color: var(--primary);
+}
+
+input {
+	border: none;
+	outline: none;
+	padding: 20px 40px;
+	border-radius: 50px;
+	text-align: center;
+	width: 80vw;
+	max-width: 400px;
+	letter-spacing: 2px;
+	margin-top: var(--medium-space);
+}
+
+button.styled {
+	margin-top: var(--medium-space);
+	width: 80vw;
+	max-width: 400px;
+	background-color: var(--primary);
+	color: white;
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+	border-radius: 50px;
+	transition: background-color 1s;
+	font-weight: 700;
+}
+
+button.styled:hover {
+	background-color: var(--primary-dark);
+	cursor: pointer;
+}
+
+button.plain {
+	margin-top: var(--small-space);
+	color: var(--primary);
+	font-size: var(--small-text);
+	text-align: center;
+	width: 100%;
+	outline: none;
+	background: none;
+	border: none;
+}
+
+button.plain:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

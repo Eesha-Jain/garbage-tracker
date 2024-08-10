@@ -1,18 +1,82 @@
-<script type="ts">
-	import '../app.css';
-	import Account from "$lib/components/Account.svelte";
+<script lang="ts">
+	import "../app.css";
+	import NavBar from "$lib/components/NavBar.svelte";
+	import { Toaster } from "svelte-french-toast";
+	import { handleError } from "$lib/handleError";
+	import {
+		getThisUser,
+		signIntoAccount,
+		createAccount,
+	} from "$lib/supabasefuncs";
+	import toast from "svelte-french-toast";
+	import { user } from "$lib/sessionStore";
 
-	let user = null;
+	(async () => {
+		user.set(await getThisUser());
+	})();
+
+	let email: string = "";
+	let password: string = "";
+	let hasAccount: boolean = true;
+
+	async function onLogIn() {
+		try {
+			await signIntoAccount(email, password);
+		} catch (e) {
+			handleError(e);
+		}
+	}
+
+	async function onSignUp() {
+		try {
+			await createAccount(email, password);
+			toast.success(
+				"Successfully created account. Check your email to confirm.",
+			);
+		} catch (e) {
+			handleError(e);
+		}
+	}
 </script>
 
 <div class="app">
+	<NavBar />
+	<Toaster />
 	<main>
-		{#if user}
+		{#if $user}
 			<slot />
 		{:else}
 			<div class="flex">
 				<div>
-					<Account />
+					<h1>{hasAccount ? "Login" : "Sign Up"}</h1>
+
+					<div style="width: 100%;">
+						<input
+							id="email"
+							placeholder="email"
+							type="text"
+							bind:value={email}
+						/><br />
+						<input
+							id="password"
+							placeholder="password"
+							type="password"
+							bind:value={password}
+						/><br />
+						<div class="flex">
+							<button
+								class="styled"
+								on:click={hasAccount ? onLogIn : onSignUp}
+								>Submit</button
+							>
+						</div>
+						<button
+							class="plain"
+							on:click={() => {
+								hasAccount = !hasAccount;
+							}}>{hasAccount ? "Sign Up" : "Log In"} Instead</button
+						>
+					</div>
 				</div>
 			</div>
 		{/if}
@@ -21,41 +85,31 @@
 
 <style>
 	:global(:root) {
-		font-family: "Noto Sans", Arial, Helvetica, sans-serif;
-		--primary: #678D58;
-		--primary-tint: #A6C48A;
-		--primary-dark: #358600;
-		--secondary: #087F8C;
-		--secondary-tint: #AAEFDF;
+		--primary: #3b8132;
+		--primary-tint: #acd8a7;
+		--primary-dark: #276211;
+		--secondary: #087f8c;
+		--secondary-tint: #aaefdf;
 		--secondary-dark: #095256;
 		--teritary: #808080;
-		--off-white: #d9e8df;
+		--off-white: #e9ffe7;
 		--off-black: #344055;
 
-		--large-space: 60px;
+		--large-space: 40px;
 		--medium-space: 20px;
 		--small-space: 10px;
-	}
 
-	:global(h1) {
-		font-size: 45px;
-		margin: 0px;
-		padding: 0px;
-		text-align: center;
-		margin-bottom: var(--small-space);
-		color: var(--primary);
-	}
-
-	:global(.flex) {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		--regular-text: 16px;
+		--small-text: 13px;
 	}
 
 	.app {
 		background-color: var(--off-white);
 		min-height: 100vh;
+	}
+
+	main {
 		padding: 5px;
-		padding-top: 20px;
+		padding-top: var(--large-space);
 	}
 </style>
