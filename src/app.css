@@ -1,3 +1,23 @@
+:root {
+	--primary: #3b8132;
+	--primary-tint: #acd8a7;
+	--primary-dark: #276211;
+	--secondary: #087f8c;
+	--secondary-tint: #aaefdf;
+	--secondary-dark: #095256;
+	--teritary: #808080;
+	--off-white: #e9ffe7;
+	--off-black: #344055;
+	--incorrect: rgb(204, 65, 65);
+
+	--large-space: 40px;
+	--medium-space: 20px;
+	--small-space: 10px;
+
+	--regular-text: 16px;
+	--small-text: 13px;
+}
+
 html,
 body {
 	padding: 0px;
@@ -12,13 +32,26 @@ button {
 	font-size: var(--regular-text);
 }
 
-h1 {
-	font-size: 45px;
+h1, h2 {
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
 	margin-bottom: var(--small-space);
 	color: var(--primary);
+}
+
+h1 {
+	font-size: 45px;
+}
+
+h2 {
+	font-size: 25px;
+}
+
+p {
+	margin: 0px;
+	padding: 0px;
+	color: black;
 }
 
 input {
@@ -74,8 +107,31 @@ button.plain:hover {
 	justify-content: center;
 }
 
+.columns {
+	display: grid;
+	grid-template-columns: 33% 33% 33%;
+	grid-gap: 10px;
+	margin: var(--medium-space);
+}
+
 .box {
-	padding: 15px;
+	padding: 10px;
 	background-color: white;
 	border-radius: 15px;
+	position: relative;
+}
+
+.circle {
+	height: 15px;
+	width: 15px;
+	border-radius: 50px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+@media only screen and (max-width: 900px) {
+	.columns {
+		grid-template-columns: 49% 49%;
+	}
 }

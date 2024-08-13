@@ -58,12 +58,26 @@
 {#if loading}
     <p>Loading...</p>
 {:else}
-    {#each projects as project}
-        <a href="/projects/{project.project_id}" class="box">
-            <div>
-                <h2>{project.project_name}</h2>
-                <p>Project owner: {users[project.project_owner]}</p>
-            </div>
-        </a>
-    {/each}
+    <div class="columns">
+        {#each projects as project}
+            <a href="/projects/{project.project_id}">
+                <div class="box">
+                    <div class="circle" style="background-color: var(--primary);"></div>
+                    <h2>{project.project_name}</h2>
+                    <p>Owner: {users[project.project_owner]}</p>
+                </div>
+            </a>
+        {/each}
+    </div>
 {/if}
+
+<style>
+    a {
+        text-decoration: none;
+        color: var(--primary);
+    }
+
+    p {
+        text-align: center;
+    }
+</style>

@@ -84,25 +84,6 @@
 </div>
 
 <style>
-	:global(:root) {
-		--primary: #3b8132;
-		--primary-tint: #acd8a7;
-		--primary-dark: #276211;
-		--secondary: #087f8c;
-		--secondary-tint: #aaefdf;
-		--secondary-dark: #095256;
-		--teritary: #808080;
-		--off-white: #e9ffe7;
-		--off-black: #344055;
-
-		--large-space: 40px;
-		--medium-space: 20px;
-		--small-space: 10px;
-
-		--regular-text: 16px;
-		--small-text: 13px;
-	}
-
 	.app {
 		background-color: var(--off-white);
 		min-height: 100vh;
