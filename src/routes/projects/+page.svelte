@@ -5,7 +5,8 @@
     import { onMount } from "svelte";
 
     let loading = true;
-    let projects: Project[] = [];
+    let public_projects: Project[] = [];
+    let private_projects: Project[] = [];
     let users: any = {};
 
     async function getUsers() {
@@ -24,22 +25,20 @@
     }
 
     async function getProjects() {
-        let { data: public_projects, error: error_1 } = await supabase
-            .from("public_projects")
-            .select("*");
-        if (error_1) {
-            handleError(error_1);
-        } else {
-            projects = public_projects as Project[];
-        }
+        try {
+            let { data: public_projects_info } = await supabase
+                .from("public_projects")
+                .select("*");
 
-        let { data: private_projects, error: error_2 } = await supabase
-            .from("private_projects")
-            .select("*");
-        if (error_2) {
-            handleError(error_2);
-        } else {
-            projects.push(...(private_projects as Project[]));
+            public_projects = public_projects_info as Project[];
+
+            let { data: private_projects_info } = await supabase
+                .from("private_projects")
+                .select("*");
+
+            private_projects = private_projects_info as Project[];
+        } catch (error) {
+            handleError(error);
         }
     }
 
@@ -59,8 +58,17 @@
     <p>Loading...</p>
 {:else}
     <div class="columns">
-        {#each projects as project}
-            <a href="/projects/{project.project_id}">
+        {#each public_projects as project}
+            <a href="/projects/public/{project.project_id}">
+                <div class="box">
+                    <div class="circle" style="background-color: var(--primary);"></div>
+                    <h2>{project.project_name}</h2>
+                    <p>Owner: {users[project.project_owner]}</p>
+                </div>
+            </a>
+        {/each}
+        {#each private_projects as project}
+            <a href="/projects/private/{project.project_id}">
                 <div class="box">
                     <div class="circle" style="background-color: var(--primary);"></div>
                     <h2>{project.project_name}</h2>
